@@ -1,0 +1,2 @@
+string a = "ala ma kota\n";
+say a;

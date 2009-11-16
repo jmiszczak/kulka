@@ -1,0 +1,6 @@
+complex c1 =[1.1,0];
+complex c2 =[0,2];
+complex c3 = c1 + c2;
+say "c1=" + c1 + "\n";
+say c3;
+say c1 + c2;
