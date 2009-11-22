@@ -7,11 +7,12 @@ import kulka.lang.errors.VariableInitializationError;
 import org.jscience.mathematics.number.Complex;
 import org.jscience.mathematics.vector.ComplexVector;
 
-public class QregType extends DataType {
+public class QregType extends DataType implements QuantumDataType {
 
 	private String initList;
 	private ComplexVector value;
 	private String kulkaTypeName = "qreg";
+	private DataTypeClass dataTypeClass = DataTypeClass.QregType;
 
 	@Override
 	public Object getValue() {
@@ -92,55 +93,18 @@ public class QregType extends DataType {
 	}
 
 	@Override
-	public void add(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void div(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mul(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sub(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public DataType add(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType div(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType mul(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType sub(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public String getKulkaTypeName() {
 		return kulkaTypeName;
+	}
+
+	@Override
+	public DataType add(DataType dt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataTypeClass getDataTypeClass() {
+		return dataTypeClass;
 	}
 }

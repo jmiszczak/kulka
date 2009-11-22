@@ -2,18 +2,25 @@ package kulka.lang.types;
 
 import kulka.lang.errors.VariableInitializationError;
 
-public class RealType extends DataType {
+import org.jscience.mathematics.number.Complex;
+
+public class RealType extends DataType implements NumericDataType {
+
+	private static final String kulkaTypeName = "real";
+	private static final DataTypeClass dataTypeClass = DataTypeClass.RealType;
 
 	private Double value;
-	private String kulkaTypeName = "real";
 
 	public RealType(String initVal) {
 		value = Double.parseDouble(initVal);
 	}
 
+	public RealType(double d) {
+		value = d;
+	}
+
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return value;
 	}
 
@@ -23,57 +30,56 @@ public class RealType extends DataType {
 	}
 
 	@Override
-	public void add(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void div(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mul(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sub(DataType dt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public DataType add(DataType dt1, DataType dt2)
-			throws VariableInitializationError {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType div(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType mul(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType sub(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getKulkaTypeName() {
 		return kulkaTypeName;
+	}
+
+	@Override
+	public DataType add(DataType dt) throws VariableInitializationError {
+		DataType ret = null;
+		switch (dt.getDataTypeClass()) {
+		case IntType:
+			ret = new RealType(value + ((Integer) dt.getValue()).doubleValue());
+			break;
+		case RealType:
+			ret = new RealType(this.doubleValue() + ((RealType)dt).doubleValue());
+			break;
+		case ComplexType:
+			ret = new ComplexType(((Complex) dt.getValue()).getReal()
+					+ this.doubleValue(), ((Complex) dt.getValue())
+					.getImaginary());
+		case StringType:
+			ret = new StringType(this.toString() + dt.toString());
+			break;
+		default:
+			break;
+		}
+		return ret;
+	}
+
+	@Override
+	public DataTypeClass getDataTypeClass() {
+		return dataTypeClass;
+	}
+
+	@Override
+	public Complex complexValue() {
+		return Complex.valueOf(value, 0);
+	}
+
+	@Override
+	public Double doubleValue() {
+		return value;
+	}
+
+	@Override
+	public Integer integerValue() {
+		return value.intValue();
+	}
+	
+	@Override
+	public String toString() {
+		return value.toString();
 	}
 
 }

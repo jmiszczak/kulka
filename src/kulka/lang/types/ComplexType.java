@@ -4,9 +4,12 @@ import kulka.lang.errors.VariableInitializationError;
 
 import org.jscience.mathematics.number.Complex;
 
-public class ComplexType extends DataType {
+public class ComplexType extends DataType implements NumericDataType {
+
+	private static final DataTypeClass dataTypeClass = DataTypeClass.ComplexType;
+	private static final String kulkaTypeName = "complex";
+
 	private Complex value;
-	private String kulkaTypeName = "complex";
 
 	public ComplexType(Object re, Object im) throws VariableInitializationError {
 		try {
@@ -24,6 +27,16 @@ public class ComplexType extends DataType {
 		return value;
 	}
 
+	public Double getReValue() {
+		// TODO Auto-generated method stub
+		return value.getReal();
+	}
+
+	public Double getImValue() {
+		// TODO Auto-generated method stub
+		return value.getImaginary();
+	}
+
 	@Override
 	public void setValue(DataType dt) {
 		// TODO Auto-generated method stub
@@ -35,62 +48,52 @@ public class ComplexType extends DataType {
 	}
 
 	@Override
-	public void add(DataType dt) {
-		value = value.plus((Complex) dt.getValue());
-
-	}
-
-	@Override
-	public void div(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mul(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sub(DataType dt) {
-		value = value.minus((Complex) dt.getValue());
-
-	}
-
-	@Override
-	public DataType add(DataType dt1, DataType dt2)
-			throws VariableInitializationError {
-		Complex c = ((Complex) dt1.getValue()).plus((Complex) dt2.getValue());
-		try {
-			return new ComplexType(c.getReal(), c.getImaginary());
-		} catch (VariableInitializationError e) {
-			throw e;
-
-		}
-	}
-
-	@Override
-	public DataType div(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType mul(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType sub(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getKulkaTypeName() {
 		return kulkaTypeName;
+	}
+
+	@Override
+	public DataType add(DataType dt) throws VariableInitializationError {
+		DataType ret = null;
+		switch (dt.getDataTypeClass()) {
+		case ComplexType:
+			ret = new ComplexType(this.getReValue()
+					+ ((ComplexType) dt).getReValue(), this.getImValue()
+					+ ((ComplexType) dt).getImValue());
+			break;
+		case RealType:
+			ret = new ComplexType(value.getReal()
+					+ ((RealType) dt).doubleValue(), ((RealType) dt)
+					.doubleValue());
+			break;
+		case IntType:
+			ret = new ComplexType(this.getReValue()
+					+ ((IntType) dt).doubleValue(), this.getImValue());
+			break;
+		case StringType:
+			ret = new StringType(this.toString() + dt.toString());
+			break;
+		default:
+			break;
+		}
+		return ret;
+	}
+
+	@Override
+	public DataTypeClass getDataTypeClass() {
+		return dataTypeClass;
+	}
+
+	public Complex complexValue() {
+		return value;
+	}
+
+	public Double doubleValue() {
+		return value.doubleValue();
+	}
+
+	public Integer integerValue() {
+		return value.intValue();
 	}
 
 }

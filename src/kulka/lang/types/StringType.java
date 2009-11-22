@@ -1,13 +1,11 @@
 package kulka.lang.types;
 
-import kulka.lang.errors.OperationNotPermittedError;
-import kulka.lang.errors.VariableInitializationError;
-
 public class StringType extends DataType {
 
-	private String value;
+	private static final String kulkaTypeName = "string";
+	private static final DataTypeClass dataTypeClass = DataTypeClass.StringType;
 
-	private String kulkaTypeName = "string";
+	private String value;
 
 	public StringType(String initVal) {
 		this.value = initVal;
@@ -30,55 +28,29 @@ public class StringType extends DataType {
 	}
 
 	@Override
-	public void add(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void div(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mul(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sub(DataType dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public DataType add(DataType dt1, DataType dt2)
-			throws VariableInitializationError {
-		return new StringType(dt1.toString() + dt2.toString());
-	}
-
-	@Override
-	public DataType div(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType mul(DataType dt1, DataType dt2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataType sub(DataType dt1, DataType dt2) throws OperationNotPermittedError {
-		throw new OperationNotPermittedError("sub", dt1.getKulkaTypeName(), dt1
-				.getKulkaTypeName());
-	}
-
-	@Override
 	public String getKulkaTypeName() {
 		return kulkaTypeName;
 	}
+
+	@Override
+	public DataType add(DataType dt) {
+		switch (dt.getDataTypeClass()) {
+		case ComplexType:
+			System.out.println("ComplexType");
+			break;
+		case IntType:
+			System.out.println("IntType");
+			break;
+		default:
+			break;
+		}
+
+		return null;
+	}
+
+	@Override
+	public DataTypeClass getDataTypeClass() {
+		return dataTypeClass;
+	}
+
 }

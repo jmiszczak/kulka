@@ -1,6 +1,5 @@
 package kulka.lang.types;
 
-import kulka.lang.errors.OperationNotPermittedError;
 import kulka.lang.errors.UnknowTypeError;
 import kulka.lang.errors.VariableInitializationError;
 
@@ -12,32 +11,36 @@ import kulka.lang.errors.VariableInitializationError;
  */
 public abstract class DataType {
 
+	/*
+	 * Public abstract methods used to operate on internal properties.
+	 */
+	protected enum DataTypeClass {
+		ComplexType, IntType, QintType, QregType, RealType, StringType
+	}
+
 	public abstract Object getValue();
 
 	public abstract void setValue(DataType dt);
-	
+
 	public abstract String getKulkaTypeName();
 
-	public abstract void add(DataType dt);
+	public abstract DataTypeClass getDataTypeClass();
 
-	public abstract void sub(DataType dt);
+	/*
+	 * Public abstract methods for implementing various operators.
+	 */
 
-	public abstract void mul(DataType dt);
+	public abstract DataType add(DataType dt) throws VariableInitializationError;
 
-	public abstract void div(DataType dt);
-
-	public abstract DataType add(DataType dt1, DataType dt2) throws VariableInitializationError;
-
-	public abstract DataType div(DataType dt1, DataType dt2);
-
-	public abstract DataType mul(DataType dt1, DataType dt2);
-
-	public abstract DataType sub(DataType dt1, DataType dt2) throws OperationNotPermittedError;
+	/*
+	 * Public static methods.
+	 */
 
 	/**
 	 * Provides an instance of class implementing data type <code>name</name>.
 	 * 
 	 * @param name
+	 *            String
 	 * @return
 	 * @throws UnknowTypeError
 	 */
@@ -63,14 +66,16 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Returns qualified name of the class implementing data type
+	 * Returns qualified name of the class implementing <i>kulka</i> data type
 	 * <code>typeName</code>.
 	 * 
 	 * @param typeName
-	 * @return
+	 *            {@link java.lang.String}
+	 * @return Object of one of the {@link kulka.lang.types.DataType} subclasses
 	 */
 	public static String getImplementingClassName(String typeName) {
 		return "kulka.lang.types." + typeName + "Type";
 
 	}
+
 }

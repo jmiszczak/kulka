@@ -1,0 +1,7 @@
+int a = 1;
+real x = 1.0;
+complex c = [2.3,1.0];
+say a + x + "\n";
+say x + a + "\n";
+say c + x + a + "\n";
+

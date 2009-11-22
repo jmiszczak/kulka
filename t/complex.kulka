@@ -1,6 +1,6 @@
 complex c1 =[1.1,0];
+say c1 + "\n";
 complex c2 =[0,2];
+say c2 + "\n";
 complex c3 = c1 + c2;
-say "c1=" + c1 + "\n";
-say c3;
-say c1 + c2;
+say c3 + "\n";

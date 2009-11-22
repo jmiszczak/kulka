@@ -19,6 +19,7 @@ import kulka.lang.errors.ExecutionError;
 import kulka.lang.errors.VariableInitializationError; 
 import kulka.lang.errors.VariableRedefinitionError;
 import kulka.lang.errors.UndefinedVariableError;
+import kulka.lang.errors.UnknowTypeError;
 
 import kulka.lang.types.DataType;
 import kulka.lang.types.QregType;
@@ -26,8 +27,7 @@ import kulka.lang.types.QintType;
 import kulka.lang.types.StringType;
 import kulka.lang.types.ComplexType;
 import kulka.lang.types.RealType;
-import kulka.lang.types.IntegerType;
-
+import kulka.lang.types.IntType;
 
 }
 
@@ -141,7 +141,7 @@ sPose returns [DataType val]
 string returns [DataType val]
   : ^(STR s=.)
   {
-    val = new StringType ($s.toString());
+    val = new StringType (s.toString());
   }
   ;
 
@@ -156,13 +156,16 @@ complex returns [DataType val]
   ;
 
 numeric returns [DataType val]
-  : ^(NUM INT)  { val = new IntegerType($INT.text); }
+  : ^(NUM INT)  { val = new IntType($INT.text); }
   | ^(NUM REAL) { val = new RealType($REAL.text); }
   ;
   
 mathOper returns [DataType val]
-  : ^('+' e1=expr e2=expr)  { e1.add(e2); val = e1; }
-  | ^('-' e1=expr e2=expr)  { e1.sub(e2); val = e1; }
-  | ^('*' e1=expr e2=expr)  { e1.mul(e2); val = e2; }
-  | ^('/' e1=expr e2=expr)  { e1.div(e2); val = e1; }
+  : ^('+' e1=expr e2=expr)  { val = e1.add(e2);}
+  | ^('-' e1=expr e2=expr)  { }
+  | ^('*' e1=expr e2=expr)  { }
+  | ^('/' e1=expr e2=expr)  { }
   ;
+catch [VariableInitializationError e] {
+  complain(e);
+}
