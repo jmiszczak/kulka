@@ -2,6 +2,7 @@ package kulka.lang.types;
 
 import kulka.lang.errors.UnknowTypeError;
 import kulka.lang.errors.VariableInitializationError;
+import kulka.lang.types.IntType;
 
 /**
  * 
@@ -9,10 +10,11 @@ import kulka.lang.errors.VariableInitializationError;
  * @version 0.2.0
  * 
  */
+
 public abstract class DataType {
 
 	/*
-	 * Public abstract methods used to operate on internal properties.
+	 * Methods used to operate on internal properties.
 	 */
 	protected enum DataTypeClass {
 		ComplexType, IntType, QintType, QregType, RealType, StringType
@@ -27,10 +29,14 @@ public abstract class DataType {
 	public abstract DataTypeClass getDataTypeClass();
 
 	/*
-	 * Public abstract methods for implementing various operators.
+	 * Methods for implementing arithmetic operators.
 	 */
 
-	public abstract DataType add(DataType dt) throws VariableInitializationError;
+	public abstract DataType add(DataType dt)
+			throws VariableInitializationError;
+
+	public abstract DataType mul(DataType dt)
+			throws VariableInitializationError;
 
 	/*
 	 * Public static methods.
@@ -44,11 +50,9 @@ public abstract class DataType {
 	 * @return
 	 * @throws UnknowTypeError
 	 */
-	public static DataType fromName(String name) throws UnknowTypeError {
+	public static DataType fromName(String kulkaName) throws UnknowTypeError {
 		DataType ret = null;
-		name = name.substring(0, 1).toUpperCase()
-				+ name.substring(1).toLowerCase();
-		name = DataType.getImplementingClassName(name);
+		String name = DataType.getImplementingClassName(kulkaName);
 		try {
 			ret = (DataType) Class.forName(name).newInstance();
 		} catch (InstantiationException e) {
@@ -73,9 +77,11 @@ public abstract class DataType {
 	 *            {@link java.lang.String}
 	 * @return Object of one of the {@link kulka.lang.types.DataType} subclasses
 	 */
-	public static String getImplementingClassName(String typeName) {
-		return "kulka.lang.types." + typeName + "Type";
-
+	private static String getImplementingClassName(String kulkaName) {
+		String className = kulkaName.substring(0, 1).toUpperCase()
+				+ kulkaName.substring(1).toLowerCase();
+		className = "kulka.lang.types." + className + "Type";
+		return className;
 	}
 
 }

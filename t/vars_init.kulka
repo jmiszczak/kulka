@@ -1,0 +1,4 @@
+int a;
+real b;
+complex c;
+say c + a + b + "\n";

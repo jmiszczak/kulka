@@ -1,11 +1,17 @@
 package kulka.lang.types;
 
+import kulka.lang.errors.VariableInitializationError;
+
 public class StringType extends DataType {
 
 	private static final String kulkaTypeName = "string";
 	private static final DataTypeClass dataTypeClass = DataTypeClass.StringType;
 
 	private String value;
+
+	public StringType() {
+		value = "";
+	}
 
 	public StringType(String initVal) {
 		this.value = initVal;
@@ -45,6 +51,12 @@ public class StringType extends DataType {
 			break;
 		}
 
+		return null;
+	}
+
+	@Override
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

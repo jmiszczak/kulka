@@ -53,13 +53,19 @@ public class QintType extends DataType implements QuantumDataType {
 	}
 
 	@Override
-	public DataType add(DataType dt) {
+	public DataTypeClass getDataTypeClass() {
+		return dataTypeClass;
+	}
+
+	@Override
+	public DataType add(DataType dt) throws VariableInitializationError {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public DataTypeClass getDataTypeClass() {
-		return dataTypeClass;
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -10,6 +10,10 @@ public class IntType extends DataType implements NumericDataType {
 	private static final String kulkaTypeName = "int";
 	private Integer value;
 
+	public IntType() {
+		value = 0;
+	}
+	
 	public IntType(String initVal) {
 		value = Integer.parseInt(initVal);
 	}
@@ -51,6 +55,24 @@ public class IntType extends DataType implements NumericDataType {
 			break;
 		case StringType:
 			ret = new StringType(this.toString() + dt.toString());
+			break;
+		default:
+			break;
+		}
+		return ret;
+	}
+
+	@Override
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		DataType ret = null;
+		switch (dt.getDataTypeClass()) {
+		case ComplexType:
+			break;
+		case RealType:
+			break;
+		case IntType:
+			break;
+		case StringType:
 			break;
 		default:
 			break;

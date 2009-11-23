@@ -11,6 +11,10 @@ public class ComplexType extends DataType implements NumericDataType {
 
 	private Complex value;
 
+	public ComplexType() {
+		value = Complex.ZERO;
+	}
+
 	public ComplexType(Object re, Object im) throws VariableInitializationError {
 		try {
 			value = Complex.valueOf(Double.parseDouble(re.toString()), Double
@@ -72,6 +76,24 @@ public class ComplexType extends DataType implements NumericDataType {
 			break;
 		case StringType:
 			ret = new StringType(this.toString() + dt.toString());
+			break;
+		default:
+			break;
+		}
+		return ret;
+	}
+
+	@Override
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		DataType ret = null;
+		switch (dt.getDataTypeClass()) {
+		case ComplexType:
+			break;
+		case RealType:
+			break;
+		case IntType:
+			break;
+		case StringType:
 			break;
 		default:
 			break;

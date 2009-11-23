@@ -107,4 +107,10 @@ public class QregType extends DataType implements QuantumDataType {
 	public DataTypeClass getDataTypeClass() {
 		return dataTypeClass;
 	}
+
+	@Override
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

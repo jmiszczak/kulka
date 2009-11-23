@@ -18,8 +18,8 @@ public class Symbol {
 	private DataType symData;
 
 	public Symbol(String name, String typeName) throws UnknowTypeError {
-		this.symName = name;
-		this.symData = DataType.fromName(typeName);
+		symName = name;
+		symData = DataType.fromName(typeName);
 	}
 
 	public Symbol(String name, DataType initVal) {

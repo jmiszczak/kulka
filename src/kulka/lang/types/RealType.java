@@ -15,6 +15,10 @@ public class RealType extends DataType implements NumericDataType {
 		value = Double.parseDouble(initVal);
 	}
 
+	public RealType() {
+		value = 0.0;
+	}
+
 	public RealType(double d) {
 		value = d;
 	}
@@ -42,7 +46,8 @@ public class RealType extends DataType implements NumericDataType {
 			ret = new RealType(value + ((Integer) dt.getValue()).doubleValue());
 			break;
 		case RealType:
-			ret = new RealType(this.doubleValue() + ((RealType)dt).doubleValue());
+			ret = new RealType(this.doubleValue()
+					+ ((RealType) dt).doubleValue());
 			break;
 		case ComplexType:
 			ret = new ComplexType(((Complex) dt.getValue()).getReal()
@@ -50,6 +55,24 @@ public class RealType extends DataType implements NumericDataType {
 					.getImaginary());
 		case StringType:
 			ret = new StringType(this.toString() + dt.toString());
+			break;
+		default:
+			break;
+		}
+		return ret;
+	}
+
+	@Override
+	public DataType mul(DataType dt) throws VariableInitializationError {
+		DataType ret = null;
+		switch (dt.getDataTypeClass()) {
+		case ComplexType:
+			break;
+		case RealType:
+			break;
+		case IntType:
+			break;
+		case StringType:
 			break;
 		default:
 			break;
@@ -76,7 +99,7 @@ public class RealType extends DataType implements NumericDataType {
 	public Integer integerValue() {
 		return value.intValue();
 	}
-	
+
 	@Override
 	public String toString() {
 		return value.toString();

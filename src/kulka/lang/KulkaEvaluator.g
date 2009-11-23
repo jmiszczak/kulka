@@ -68,7 +68,7 @@ varDef
   { try {
       Symbol s ;
       if (initVal != null){
-        s = new Symbol($name.text, initVal);  
+        s = new Symbol($name.text, initVal);
       } else {
         s = new Symbol($name.text, $type.text);
       }
@@ -161,9 +161,9 @@ numeric returns [DataType val]
   ;
   
 mathOper returns [DataType val]
-  : ^('+' e1=expr e2=expr)  { val = e1.add(e2);}
+  : ^('+' e1=expr e2=expr)  { val = e1.add(e2); }
   | ^('-' e1=expr e2=expr)  { }
-  | ^('*' e1=expr e2=expr)  { }
+  | ^('*' e1=expr e2=expr)  { val = e1.mul(e2); }
   | ^('/' e1=expr e2=expr)  { }
   ;
 catch [VariableInitializationError e] {
